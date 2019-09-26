@@ -1,0 +1,1 @@
+api.predic8.de/shop/docs#!/categories/getShopCategoriesId
