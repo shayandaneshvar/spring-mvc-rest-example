@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository.findAll().stream().map(customer -> customerMapper.
                 customerToCustomerDTO(customer).setCustomerUrl(CustomerController.getBaseUrl() +
-                customer.getId())).collect(Collectors.toList());
+                "/" + customer.getId())).collect(Collectors.toList());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
         customer = customerRepository.save(customer);
         CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(customer).
-                setCustomerUrl(CustomerController.getBaseUrl() + customer.getId());
+                setCustomerUrl(CustomerController.getBaseUrl() + "/" + customer.getId());
         return returnDTO;
     }
 
@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.setLastName(customerDTO.getLastName());
             }
             return customerMapper.customerToCustomerDTO(customerRepository.save(customer))
-                    .setCustomerUrl(CustomerController.getBaseUrl() + id);
+                    .setCustomerUrl(CustomerController.getBaseUrl() + "/" + id);
         }).orElseThrow(RuntimeException::new);
     }
 
@@ -68,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO saveAndReturnDTO(Customer customer) {
         customer = customerRepository.save(customer);
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer).
-                setCustomerUrl(CustomerController.getBaseUrl() + customer.getId());
+                setCustomerUrl(CustomerController.getBaseUrl() + "/" + customer.getId());
         return customerDTO;
     }
 

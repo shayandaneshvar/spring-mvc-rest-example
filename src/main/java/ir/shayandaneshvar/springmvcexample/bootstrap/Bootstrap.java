@@ -2,8 +2,10 @@ package ir.shayandaneshvar.springmvcexample.bootstrap;
 
 import ir.shayandaneshvar.springmvcexample.domain.Category;
 import ir.shayandaneshvar.springmvcexample.domain.Customer;
+import ir.shayandaneshvar.springmvcexample.domain.Vendor;
 import ir.shayandaneshvar.springmvcexample.repository.CategoryRepository;
 import ir.shayandaneshvar.springmvcexample.repository.CustomerRepository;
+import ir.shayandaneshvar.springmvcexample.repository.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,11 +15,22 @@ import org.springframework.stereotype.Component;
 public final class Bootstrap implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private final CustomerRepository customerRepository;
+    private final VendorRepository vendorRepository;
 
     @Override
     public void run(String... args) throws Exception {
         loadCustomers();
         loadCategories();
+        loadVendors();
+    }
+
+    private void loadVendors() {
+        Vendor vendor = new Vendor().setName("Vendor 1");
+        Vendor vendor2 = new Vendor().setName("Vendor 2");
+        vendorRepository.save(vendor);
+        vendorRepository.save(vendor2);
+        System.out.println("Data Loaded | Vendors |" + vendorRepository.count() + " |");
+
     }
 
     private void loadCategories() {

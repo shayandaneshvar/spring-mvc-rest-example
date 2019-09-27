@@ -6,6 +6,7 @@ import ir.shayandaneshvar.springmvcexample.bootstrap.Bootstrap;
 import ir.shayandaneshvar.springmvcexample.domain.Customer;
 import ir.shayandaneshvar.springmvcexample.repository.CategoryRepository;
 import ir.shayandaneshvar.springmvcexample.repository.CustomerRepository;
+import ir.shayandaneshvar.springmvcexample.repository.VendorRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +19,6 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -31,13 +29,15 @@ public class CustomerServiceImplIT {
 
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    VendorRepository vendorRepository;
 
     CustomerService customerService;
 
     @Before
     public void setUp() throws Exception {
         System.out.println("Loading Customers : " + customerRepository.findAll().size());
-        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
         bootstrap.run();
         customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE,
                 customerRepository);
