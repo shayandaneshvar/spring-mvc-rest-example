@@ -4,6 +4,7 @@ import ir.shayandaneshvar.springmvcexample.api.v1.mapper.CustomerMapper;
 import ir.shayandaneshvar.springmvcexample.api.v1.model.CustomerDTO;
 import ir.shayandaneshvar.springmvcexample.controllers.v1.CustomerController;
 import ir.shayandaneshvar.springmvcexample.domain.Customer;
+import ir.shayandaneshvar.springmvcexample.exceptions.ResourceNotFoundException;
 import ir.shayandaneshvar.springmvcexample.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomerById(Long id) {
         return customerRepository.findById(id).map(customerMapper::customerToCustomerDTO)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

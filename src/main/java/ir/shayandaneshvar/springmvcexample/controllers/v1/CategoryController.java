@@ -27,13 +27,13 @@ public class CategoryController {
         );
     }
 
-    public static String BASE_URL() {
+    public static String getBaseUrl() {
         return BASE_URL;
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable String name) {
-        return new ResponseEntity<CategoryDTO>(categoryService.getCategoryByName(name),
+        return new ResponseEntity<>(categoryService.getCategoryByName(name),
                 HttpStatus.OK);
     }
 }
