@@ -9,12 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/customers")
+@RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
+    static final String BASE_URL = "/api/v1/customers";
     private final CustomerService customerService;
 
     @GetMapping
@@ -52,5 +51,9 @@ public class CustomerController {
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomerById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public static String getBaseUrl() {
+        return BASE_URL;
     }
 }

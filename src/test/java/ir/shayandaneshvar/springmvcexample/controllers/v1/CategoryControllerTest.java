@@ -1,6 +1,7 @@
 package ir.shayandaneshvar.springmvcexample.controllers.v1;
 
 import ir.shayandaneshvar.springmvcexample.api.v1.model.CategoryDTO;
+import ir.shayandaneshvar.springmvcexample.domain.Category;
 import ir.shayandaneshvar.springmvcexample.services.CategoryService;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +50,7 @@ public class CategoryControllerTest {
 
         when(categoryService.getAllCategories()).thenReturn(categoryDTOS);
 
-        mockMvc.perform(get("/api/v1/categories/").contentType(MediaType.
+        mockMvc.perform(get(CategoryController.BASE_URL()).contentType(MediaType.
                 APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath(
                 "$.categories", hasSize(2)));
     }
@@ -58,7 +59,7 @@ public class CategoryControllerTest {
     public void testGetByNameCategories() throws Exception {
         CategoryDTO categoryDTO1 = new CategoryDTO().setId(1l).setName(NAME);
         when(categoryService.getCategoryByName(anyString())).thenReturn(categoryDTO1);
-        mockMvc.perform(get("/api/v1/categories/" + NAME).contentType(MediaType.
+        mockMvc.perform(get(CategoryController.BASE_URL() + "/" + NAME).contentType(MediaType.
                 APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$.name"
                 , equalTo(NAME)));
 
