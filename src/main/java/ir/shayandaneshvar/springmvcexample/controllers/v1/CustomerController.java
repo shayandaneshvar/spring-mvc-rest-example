@@ -1,5 +1,7 @@
 package ir.shayandaneshvar.springmvcexample.controllers.v1;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import ir.shayandaneshvar.springmvcexample.api.v1.model.CustomerDTO;
 import ir.shayandaneshvar.springmvcexample.api.v1.model.CustomerListDTO;
 import ir.shayandaneshvar.springmvcexample.services.CustomerService;
@@ -7,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Api(description = "This Is The Customer Controller")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(CustomerController.BASE_URL)
@@ -14,6 +17,8 @@ public class CustomerController {
     static final String BASE_URL = "/api/v1/customers";
     private final CustomerService customerService;
 
+    @ApiOperation(value = "This will get a list of customers", notes = "There are some " +
+            "notes about the API")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getListOfCustomers() {
